@@ -100,5 +100,17 @@ app.get("/account", verifyIfExistesAccountCPF, (request, response) =>{
   const{customer} = request
   return response.json(customer)
 });
+app.delete("/account", verifyIfExistesAccountCPF, (request, response)=>{
+  const {customer} = request
+  //splice
+  customers.splice(customer, 1) 
+  // a função js espera dois parametros de onde vai iniciar e onde vai parar, nesse caso vai remover uma posição do vetor
+  return response.status(200).json(customer)
+});
+app.get("/balance", verifyIfExistesAccountCPF, (request, response)=>{
+  const {customer} = request
 
+  const balance = getBalance(customer.statement)
+  return response.json(balance)
+});
 app.listen(22222);
